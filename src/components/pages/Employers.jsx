@@ -1,0 +1,731 @@
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+
+const EMPLOYER_PERKS = [
+    { label: '48-72 Hr Shortlists', icon: 'clock' },
+    { label: '90-Day Free Replacement', icon: 'shield' },
+    { label: '98% Retention', icon: 'bolt' },
+];
+
+const HIRING_MODELS = [
+    {
+        title: 'Permanent Recruitment',
+        description:
+            'End-to-end talent sourcing and comprehensive vetting for critical long-term roles.',
+        icon: 'users',
+    },
+    {
+        title: 'Contract & Temp Staffing',
+        description:
+            'Rapidly scale project capacity with pre-screened specialists without payroll overhead.',
+        icon: 'briefcase',
+    },
+    {
+        title: 'Tech & Specialized Hiring',
+        description:
+            'Dedicated sourcing for niche tech stacks, software engineers, and product leaders.',
+        icon: 'search',
+    },
+    {
+        title: 'Executive Headhunting',
+        description:
+            'Confidential C-suite and leadership searches with proven industry track records.',
+        icon: 'target',
+    },
+];
+
+function EmployerPerkIcon({ type }) {
+    const iconClass =
+        'w-4 h-4 text-[#0B2D63] transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 shrink-0';
+
+    if (type === 'clock') {
+        return (
+            <svg className={iconClass} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+            </svg>
+        );
+    }
+
+    if (type === 'shield') {
+        return (
+            <svg className={iconClass} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+            </svg>
+        );
+    }
+
+    return (
+        <svg className={iconClass} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+    );
+}
+
+function HiringModelIcon({ type, isActive }) {
+    const iconClass = `w-5 h-5 transition-transform duration-300 ${isActive
+        ? 'text-white scale-110'
+        : 'text-[#173568] group-hover:scale-110 group-hover:-rotate-3'
+        }`;
+
+    if (type === 'users') {
+        return (
+            <svg className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.9" viewBox="0 0 24 24">
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+            </svg>
+        );
+    }
+
+    if (type === 'briefcase') {
+        return (
+            <svg className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.9" viewBox="0 0 24 24">
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+            </svg>
+        );
+    }
+
+    if (type === 'search') {
+        return (
+            <svg className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.9" viewBox="0 0 24 24">
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"
+                />
+            </svg>
+        );
+    }
+
+    return (
+        <svg className={iconClass} fill="none" stroke="currentColor" strokeWidth="1.9" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8.5" />
+            <circle cx="12" cy="12" r="4.5" />
+            <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+        </svg>
+    );
+}
+
+function EmployerHiringForm({ selectedHiringType, onSubmitHiring }) {
+    const [formData, setFormData] = useState({
+        yourName: '',
+        companyName: '',
+        businessEmail: '',
+        phoneNumber: '',
+        positionToHire: '',
+        hiringType: selectedHiringType || 'Permanent Role',
+        positionsCount: '1 Position',
+        hiringTimeline: 'Immediate (0–15 days)',
+        jobDescription: '',
+    });
+    const [submitted, setSubmitted] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
+
+    const handleChange = (field, value) => {
+        setFormData((prev) => ({ ...prev, [field]: value }));
+        if (errorMsg) setErrorMsg('');
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (
+            !formData.yourName.trim() ||
+            !formData.companyName.trim() ||
+            !formData.businessEmail.trim() ||
+            !formData.phoneNumber.trim() ||
+            !formData.positionToHire.trim()
+        ) {
+            setErrorMsg('Please fill all required fields (*) before submitting.');
+            return;
+        }
+
+        if (onSubmitHiring) {
+            onSubmitHiring(formData);
+        }
+        setSubmitted(true);
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-2xl bg-white/95 border border-slate-200/90 p-5 sm:p-8 shadow-sm"
+        >
+            {submitted ? (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="py-8 text-center space-y-3"
+                >
+                    <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-700 mx-auto flex items-center justify-center font-bold text-lg">
+                        ✓
+                    </div>
+                    <h3 className="font-display font-bold text-xl text-slate-900">
+                        Hiring Request Received
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
+                        Thank you, {formData.yourName}. Our talent acquisition specialist will connect with {formData.companyName} within 24 hours for the {formData.positionToHire} requirement.
+                    </p>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setSubmitted(false);
+                            setFormData({
+                                yourName: '',
+                                companyName: '',
+                                businessEmail: '',
+                                phoneNumber: '',
+                                positionToHire: '',
+                                hiringType: 'Permanent Role',
+                                positionsCount: '1 Position',
+                                hiringTimeline: 'Immediate (0–15 days)',
+                                jobDescription: '',
+                            });
+                        }}
+                        className="px-4 py-2 rounded-lg bg-[#092452] text-white text-xs font-semibold cursor-pointer"
+                    >
+                        Submit Another Requirement
+                    </button>
+                </motion.div>
+            ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                        {/* Your Name */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Your Name <span className="text-rose-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                required
+                                value={formData.yourName}
+                                onChange={(e) => handleChange('yourName', e.target.value)}
+                                placeholder="e.g. Rahul Sharma"
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none transition"
+                            />
+                        </div>
+
+                        {/* Company Name */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Company Name <span className="text-rose-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                required
+                                value={formData.companyName}
+                                onChange={(e) => handleChange('companyName', e.target.value)}
+                                placeholder="e.g. Acme Technologies"
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none transition"
+                            />
+                        </div>
+
+                        {/* Business Email */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Business Email <span className="text-rose-500">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                required
+                                value={formData.businessEmail}
+                                onChange={(e) => handleChange('businessEmail', e.target.value)}
+                                placeholder="you@company.com"
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none transition"
+                            />
+                        </div>
+
+                        {/* Phone Number */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Phone Number <span className="text-rose-500">*</span>
+                            </label>
+                            <input
+                                type="tel"
+                                required
+                                value={formData.phoneNumber}
+                                onChange={(e) => handleChange('phoneNumber', e.target.value)}
+                                placeholder="e.g. +91 98765 43210"
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none transition"
+                            />
+                        </div>
+
+                        {/* Position to Hire */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Position to Hire <span className="text-rose-500">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                required
+                                value={formData.positionToHire}
+                                onChange={(e) => handleChange('positionToHire', e.target.value)}
+                                placeholder="e.g. Senior React Developer"
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none transition"
+                            />
+                        </div>
+
+                        {/* Hiring Type */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Hiring Type
+                            </label>
+                            <select
+                                value={formData.hiringType}
+                                onChange={(e) => handleChange('hiringType', e.target.value)}
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none transition cursor-pointer"
+                            >
+                                <option value="Permanent Role">Permanent Role</option>
+                                <option value="Contract & Temp Staffing">Contract &amp; Temp Staffing</option>
+                                <option value="Tech & Specialized Hiring">Tech &amp; Specialized Hiring</option>
+                                <option value="Executive Headhunting">Executive Headhunting</option>
+                            </select>
+                        </div>
+
+                        {/* Number of Positions */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Number of Positions
+                            </label>
+                            <select
+                                value={formData.positionsCount}
+                                onChange={(e) => handleChange('positionsCount', e.target.value)}
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none transition cursor-pointer"
+                            >
+                                <option value="1 Position">1 Position</option>
+                                <option value="2–5 Positions">2–5 Positions</option>
+                                <option value="6–15 Positions">6–15 Positions</option>
+                                <option value="15+ Bulk / Team Scaling">15+ Bulk / Team Scaling</option>
+                            </select>
+                        </div>
+
+                        {/* Hiring Timeline */}
+                        <div className="space-y-1.5">
+                            <label className="block text-xs font-bold text-slate-800">
+                                Hiring Timeline
+                            </label>
+                            <select
+                                value={formData.hiringTimeline}
+                                onChange={(e) => handleChange('hiringTimeline', e.target.value)}
+                                className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none transition cursor-pointer"
+                            >
+                                <option value="Immediate (0–15 days)">Immediate (0–15 days)</option>
+                                <option value="Within 30 days">Within 30 days</option>
+                                <option value="1–2 Months">1–2 Months</option>
+                                <option value="Pipeline / Exploratory">Pipeline / Exploratory</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Job Description & Specific Skills */}
+                    <div className="space-y-1.5">
+                        <label className="block text-xs font-bold text-slate-800">
+                            Job Description &amp; Specific Skills
+                        </label>
+                        <textarea
+                            rows={3}
+                            value={formData.jobDescription}
+                            onChange={(e) => handleChange('jobDescription', e.target.value)}
+                            placeholder="Briefly describe required skills, experience level, budget or location preferences..."
+                            className="w-full rounded-xl bg-[#F4F6F9] focus:bg-white border border-slate-200/90 focus:border-[#3266bb] focus:ring-2 focus:ring-[#3266bb]/15 px-4 py-2.5 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none transition resize-none"
+                        />
+                    </div>
+
+                    <AnimatePresence>
+                        {errorMsg && (
+                            <motion.p
+                                initial={{ opacity: 0, y: -4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                className="text-xs font-semibold text-rose-600"
+                            >
+                                {errorMsg}
+                            </motion.p>
+                        )}
+                    </AnimatePresence>
+
+                    <motion.button
+                        type="submit"
+                        whileHover={{ scale: 1.01, y: -1 }}
+                        whileTap={{ scale: 0.99 }}
+                        className="group w-full py-3.5 px-6 rounded-xl bg-[#092452] hover:bg-[#0D3270] text-white text-xs sm:text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer inline-flex items-center justify-center gap-2"
+                    >
+                        <span>Submit Hiring Request</span>
+                        <span
+                            aria-hidden="true"
+                            className="transition-transform duration-300 group-hover:translate-x-1"
+                        >
+                            →
+                        </span>
+                    </motion.button>
+                </form>
+            )}
+        </motion.div>
+    );
+}
+
+export default function Employers({ onOpenModal, onSelectModel, onSubmitHiring }) {
+    const [activeModel, setActiveModel] = useState(null);
+
+    const handleRequirementClick = (modelTitle) => {
+        if (onSelectModel && modelTitle) {
+            onSelectModel(modelTitle);
+        }
+        if (onOpenModal) {
+            onOpenModal('employerModal');
+        } else {
+            const formEl = document.getElementById('employer-requirement-section');
+            if (formEl) {
+                formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                window.location.href = '/contact';
+            }
+        }
+    };
+
+    return (
+        <div className="w-full overflow-x-clip bg-[#F4F6F9]">
+            {/* =========================================================
+          SECTION 1: FOR EMPLOYERS & HIRING MANAGERS HERO
+         ========================================================= */}
+            <section className="py-12 sm:py-16 lg:py-20 bg-[#F4F6F9] overflow-x-clip">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    {/* Left Column */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -24 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                        className="lg:col-span-6 space-y-5 sm:space-y-6"
+                    >
+                        {/* Badge */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 'some' }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E6ECF5] border border-[#0B2D63]/10 text-[#0B2D63] text-[11px] sm:text-xs font-extrabold uppercase tracking-wider"
+                        >
+                            <svg
+                                className="w-3.5 h-3.5 text-[#0B2D63] shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                />
+                            </svg>
+                            <span>For Employers &amp; Hiring Managers</span>
+                        </motion.div>
+
+                        {/* Display Heading */}
+                        <h1 className="font-display font-bold text-3xl sm:text-4xl lg:text-[40px] text-slate-900 leading-[1.09] tracking-tight">
+                            Hire Top 5% Talent &amp;{' '}
+                            <span className="text-[#3168c2]"> Faster &amp; Guaranteed.</span>
+                        </h1>
+
+                        {/* Subtitle */}
+                        <p className="font-sans text-slate-500 text-sm sm:text-base leading-relaxed max-w-xl">
+                            Scale your team with pre-vetted professionals matched precisely to your business goals, technical requirements, and culture.
+                        </p>
+
+                        {/* Primary & Secondary Buttons */}
+                        <div className="flex flex-wrap items-center gap-3 pt-1">
+                            <motion.button
+                                type="button"
+                                whileHover={{ scale: 1.02, y: -1 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => handleRequirementClick('General Hiring Requirement')}
+                                className="group px-5 py-3 rounded-lg bg-[#092452] hover:bg-[#0D3270] text-white text-xs sm:text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer inline-flex items-center gap-2"
+                            >
+                                <span>Post a Hiring Requirement</span>
+                                <span
+                                    aria-hidden="true"
+                                    className="transition-transform duration-300 group-hover:translate-x-1"
+                                >
+                                    →
+                                </span>
+                            </motion.button>
+
+                            <motion.button
+                                type="button"
+                                whileHover={{ scale: 1.02, y: -1 }}
+                                whileTap={{ scale: 0.98 }}
+                                onClick={() => handleRequirementClick('Consultant Discussion')}
+                                className="px-5 py-3 rounded-lg bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-[#0B2D63]/35 text-slate-700 hover:text-[#0B2D63] text-xs sm:text-sm font-semibold shadow-2xs transition-all duration-200 cursor-pointer inline-flex items-center justify-center"
+                            >
+                                Talk to a Consultant
+                            </motion.button>
+                        </div>
+
+                        {/* Trust Items Row */}
+                        <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5 pt-2">
+                            {EMPLOYER_PERKS.map((perk) => (
+                                <motion.div
+                                    key={perk.label}
+                                    whileHover={{ y: -2 }}
+                                    className="group inline-flex items-center gap-2 text-xs font-medium text-slate-600 hover:text-[#0B2D63] transition-colors cursor-default"
+                                >
+                                    <EmployerPerkIcon type={perk.icon} />
+                                    <span>{perk.label}</span>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Right Column: Office Photo + Floating Enterprises Badge */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 24 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+                        className="lg:col-span-6"
+                    >
+                        <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group">
+                            <img
+                                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+                                alt="Modern Enterprise Team Workspace"
+                                className="w-full h-[310px] sm:h-[390px] lg:h-[430px] object-cover transition-transform duration-700 group-hover:scale-105"
+                                onError={(e) => {
+                                    e.currentTarget.src =
+                                        'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80';
+                                }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent" />
+
+                            {/* Bottom-Left Floating Card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 'some' }}
+                                transition={{ duration: 0.48, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                                whileHover={{ y: -3 }}
+                                className="absolute bottom-4 left-4 right-4 sm:right-auto sm:bottom-5 sm:left-5 bg-white/95 backdrop-blur-md rounded-xl px-3.5 py-3 sm:px-4 sm:py-3.5 shadow-xl border border-slate-200/80 flex items-center gap-3.5 max-w-sm"
+                            >
+                                <div className="w-10 h-10 rounded-lg bg-[#E6ECF5] text-[#0B2D63] flex items-center justify-center shrink-0">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.9" viewBox="0 0 24 24">
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                                        />
+                                    </svg>
+                                </div>
+
+                                <div className="min-w-0">
+                                    <p className="font-display font-bold text-sm sm:text-base text-slate-900 leading-tight">
+                                        120+ Enterprises
+                                    </p>
+                                    <p className="text-[11px] sm:text-xs text-slate-500 mt-0.5 truncate">
+                                        Trust TalentBridge for scaling
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* =========================================================
+                SECTION 2: OUR HIRING MODELS (4 CARDS)
+               ========================================================= */}
+            <section className="relative py-16 sm:py-20 bg-[#ffffff] border-t border-slate-200/70 overflow-hidden">
+                {/* Subtle Small Dot Matrix Background */}
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 opacity-65"
+                    style={{
+                        backgroundImage: 'radial-gradient(#cbd5e1 0.75px, transparent 0.75px)',
+                        backgroundSize: '18px 18px',
+                    }}
+                />
+
+                {/* Soft Ambient Blur Glow */}
+                <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-80 rounded-full bg-[#3266bb]/10 blur-3xl"
+                />
+
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 18 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 space-y-2.5"
+                    >
+                        <span className="inline-block text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#3266bb]">
+                            Our Hiring Models
+                        </span>
+
+                        <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-[42px] text-slate-900 leading-[1.14] tracking-tight">
+                            Recruitment solutions{' '}
+                            <span className="text-[#3266bb]">built for speed &amp; precision.</span>
+                        </h2>
+
+                        <p className="font-sans text-slate-500 text-xs sm:text-sm leading-relaxed">
+                            From individual specialist roles to large-scale workforce deployment, we deliver candidates ready to make an immediate impact.
+                        </p>
+                    </motion.div>
+
+                    {/* 4-Card Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+                        {HIRING_MODELS.map((model, idx) => {
+                            const isActive = activeModel === idx;
+
+                            return (
+                                <motion.div
+                                    key={model.title}
+                                    initial={{ opacity: 0, y: 22 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, amount: 'some' }}
+                                    transition={{
+                                        duration: 0.48,
+                                        delay: idx * 0.08,
+                                        ease: [0.22, 1, 0.36, 1],
+                                    }}
+                                    whileHover={{ y: -5 }}
+                                    onMouseEnter={() => setActiveModel(idx)}
+                                    onMouseLeave={() => setActiveModel(null)}
+                                    onClick={() => setActiveModel(idx)}
+                                    className={`group rounded-2xl p-6 border transition-all duration-300 flex flex-col justify-between min-h-[235px] sm:min-h-[255px] cursor-pointer ${isActive
+                                            ? 'bg-white border-[#3266bb]/45 shadow-lg shadow-slate-900/[0.06]'
+                                            : 'bg-white/90 hover:bg-white border-slate-200/90 hover:border-[#3266bb]/35 shadow-sm hover:shadow-md'
+                                        }`}
+                                >
+                                    <div>
+                                        <div
+                                            className={`w-10 h-10 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 ${isActive
+                                                    ? 'bg-[#092452] shadow-sm'
+                                                    : 'bg-[#E6ECF5] group-hover:bg-[#2263ca]'
+                                                }`}
+                                        >
+                                            <HiringModelIcon type={model.icon} isActive={isActive} />
+                                        </div>
+
+                                        <h3 className="font-display font-bold text-lg sm:text-[19px] text-slate-900 mb-2 leading-snug tracking-tight">
+                                            {model.title}
+                                        </h3>
+
+                                        <p className="font-sans text-slate-500 text-xs sm:text-[13px] leading-relaxed">
+                                            {model.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="pt-6">
+                                        <button
+                                            type="button"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleRequirementClick(model.title);
+                                            }}
+                                            className="group/cta inline-flex items-center gap-1.5 text-xs font-bold text-[#17376b] hover:text-[#2263ca] transition cursor-pointer"
+                                        >
+                                            <span>Hire Now</span>
+                                            <span
+                                                aria-hidden="true"
+                                                className="transition-transform duration-300 group-hover/cta:translate-x-1"
+                                            >
+                                                →
+                                            </span>
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                </div>
+            </section>
+
+            {/* =========================================================
+          SECTION 3: SUBMIT A HIRING REQUIREMENT FORM
+         ========================================================= */}
+            <section
+                id="employer-requirement-section"
+                className="py-16 sm:py-20 bg-[#F4F6F9] border-t border-slate-200/70 overflow-x-clip scroll-mt-20"
+            >
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    {/* Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 18 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-center mb-8 sm:mb-10 space-y-2"
+                    >
+                        <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-[42px] text-slate-900 tracking-tight">
+                            Submit a <span className="text-[#3266bb]">Hiring Requirement</span>
+                        </h2>
+                        <p className="font-sans text-slate-500 text-xs sm:text-sm lg:text-[15px]">
+                            Tell us your open role details and our talent acquisition team will connect within 24 hours.
+                        </p>
+                    </motion.div>
+
+                    {/* Form Card */}
+                    <EmployerHiringForm onSubmitHiring={onSubmitHiring} />
+
+                    {/* Bottom Consultation Strip */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 14 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                        className="mt-5 rounded-xl bg-white/90 border border-slate-200/90 px-4 sm:px-6 py-3.5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-2.5"
+                    >
+                        <div className="group inline-flex items-center gap-2 text-xs text-slate-600">
+                            <svg
+                                className="w-4 h-4 text-[#17376b] transition-transform duration-300 group-hover:scale-110 shrink-0"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.9"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                                />
+                            </svg>
+                            <span>Need urgent talent or immediate hiring consultation?</span>
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => handleRequirementClick('Immediate Hiring Consultation')}
+                            className="group/link inline-flex items-center gap-1.5 text-xs font-bold text-[#2263ca] hover:text-[#17376b] transition cursor-pointer"
+                        >
+                            <span>Speak with Senior Recruiter</span>
+                            <span
+                                aria-hidden="true"
+                                className="transition-transform duration-300 group-hover/link:translate-x-1"
+                            >
+                                →
+                            </span>
+                        </button>
+                    </motion.div>
+                </div>
+            </section>
+        </div>
+    );
+}
