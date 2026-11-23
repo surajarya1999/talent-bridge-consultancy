@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-const Footer = ({ onOpenModal }) => {
+const Footer = () => {
     const companyLinks = [
+        { name: "Home", to: "/" },
         { name: "About Us", to: "/about" },
         { name: "Services", to: "/services" },
         { name: "Current Jobs", to: "/jobs" },
@@ -233,7 +234,7 @@ const Footer = ({ onOpenModal }) => {
                             </a>
 
                             <a
-                                href="tel:+919305765097"
+                                href="tel:+919214032912"
                                 className="flex items-center gap-3 text-blue-100/80 hover:text-white transition-colors group"
                             >
                                 <span className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-blue-200 group-hover:bg-[#3266bb] group-hover:text-white shrink-0 transition-colors">
@@ -252,7 +253,7 @@ const Footer = ({ onOpenModal }) => {
                                     </svg>
                                 </span>
                                 <span className="font-sans text-xs">
-                                    +91 93057 65097
+                                    +91 92140 32912
                                 </span>
                             </a>
 

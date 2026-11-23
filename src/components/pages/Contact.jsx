@@ -274,7 +274,7 @@ export default function Contact({ onNavigate, onSubmitMessage }) {
 
                                 {/* Call Us Card */}
                                 <motion.a
-                                    href="tel:+919305765097"
+                                    href="tel:+919214032912"
                                     initial={{ opacity: 0, x: -20 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true, amount: 'some' }}
@@ -305,7 +305,7 @@ export default function Contact({ onNavigate, onSubmitMessage }) {
                                                 Call Us
                                             </span>
                                             <p className="font-display font-bold text-xl sm:text-[22px] text-slate-900 mt-0.5">
-                                                +91 93057 65097
+                                                +91 92140 32912
                                             </p>
                                             <span className="mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-[#2263ca] group-hover:text-[#17376b] transition">
                                                 <span>Speak directly with team</span>

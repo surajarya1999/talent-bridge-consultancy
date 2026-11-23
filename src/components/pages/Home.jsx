@@ -36,7 +36,7 @@ const HERO_SLIDES = [
             className: 'bg-blue-500 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/25',
         },
         secondaryCta: { label: 'See 4-Step Screening', href: '#process' },
-        image: 'https://plus.unsplash.com/premium_photo-1723802464689-411ae08ad38e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
+        image: 'https://cdn.pixabay.com/photo/2026/10/02/14/11/14-11-12-151_1280.jpg',
         fallbackImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80',
         alt: 'IT and Tech Recruitment',
         cardType: 'domains',
@@ -55,7 +55,7 @@ const HERO_SLIDES = [
             className: 'bg-teal-500 hover:bg-teal-400 text-slate-950 shadow-lg shadow-teal-500/20',
         },
         secondaryCta: { label: 'Submit Your CV', modal: 'candidateModal' },
-        image: 'https://images.unsplash.com/photo-1758518730037-a16581a040e8?q=80&w=1031&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
+        image: 'https://cdn.pixabay.com/photo/2018/05/08/08/42/virtual-coworkers-3382503_1280.jpg',
         fallbackImage: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1600&q=80',
         alt: 'Career Growth Opportunities',
         cardType: 'candidate',
@@ -1240,7 +1240,7 @@ export default function Home({ onOpenModal, onApplyRole }) {
                                 {/* Main Image */}
                                 <div className="relative rounded-2xl overflow-hidden shadow-xl">
                                     <img
-                                        src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                                        src="https://cdn.pixabay.com/photo/2026/11/18/14/55/geralt-businesspeople-10577832_1280.jpg"
                                         alt="TalentBridge Infrastructure and Recruitment Operations"
                                         loading="lazy"
                                         className="w-full h-[280px] sm:h-[365px] object-cover"
