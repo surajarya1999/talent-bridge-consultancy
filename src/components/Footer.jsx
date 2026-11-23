@@ -25,7 +25,7 @@ const Footer = ({ onOpenModal }) => {
     const socialLinks = [
         {
             name: "LinkedIn",
-            href: "https://linkedin.com",
+            href: "https://www.linkedin.com/company/talentbrizehr/about/",
             icon: (
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                     <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.37V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.26 2.37 4.26 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.21 0 22.23 0z" />
@@ -34,7 +34,7 @@ const Footer = ({ onOpenModal }) => {
         },
         {
             name: "Instagram",
-            href: "https://instagram.com",
+            href: "https://www.instagram.com/talent_bride/",
             icon: (
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-4 h-4">
                     <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -45,7 +45,7 @@ const Footer = ({ onOpenModal }) => {
         },
         {
             name: "Facebook",
-            href: "https://facebook.com",
+            href: "https://www.facebook.com/profile.php?id=61594843948476",
             icon: (
                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                     <path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7c-.8-.1-1.6-.2-2.4-.2-2.4 0-4.1 1.5-4.1 4.2v2.2H7.5V13h2.8v8h3.2z" />
@@ -76,36 +76,7 @@ const Footer = ({ onOpenModal }) => {
                 className="pointer-events-none absolute -bottom-24 right-1/4 w-80 h-80 rounded-full bg-[#2263ca]/20 blur-3xl"
             />
 
-            {/* Top Quick Action Strip */}
-            <div className="relative z-10 border-b border-white/10 bg-[#071c40]/70 backdrop-blur-xs">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <p className="font-display font-bold text-sm sm:text-base text-white">
-                            Ready to scale your team or land your next role?
-                        </p>
-                        <p className="font-sans text-xs text-blue-200/80 mt-0.5">
-                            Pre-vetted talent shortlists in 48–72 hours &amp; verified career opportunities.
-                        </p>
-                    </div>
 
-                    <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
-                        <Link
-                            to="/jobs"
-                            onClick={() => onOpenModal && onOpenModal("candidateModal")}
-                            className="flex-1 sm:flex-initial text-center px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-semibold transition cursor-pointer"
-                        >
-                            Upload Resume
-                        </Link>
-                        <Link
-                            to="/employers"
-                            onClick={() => onOpenModal && onOpenModal("employerModal")}
-                            className="flex-1 sm:flex-initial text-center px-4 py-2 rounded-lg bg-[#3266bb] hover:bg-[#2263ca] text-white text-xs font-semibold shadow-sm transition cursor-pointer"
-                        >
-                            Hire Talent →
-                        </Link>
-                    </div>
-                </div>
-            </div>
 
             {/* Main Footer */}
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20 pb-10 sm:pb-12">

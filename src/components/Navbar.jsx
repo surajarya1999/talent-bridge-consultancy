@@ -85,11 +85,7 @@ const DEMO_DROPDOWNS = {
     services: {
         label: 'Services',
         items: [
-            {
-                title: 'Permanent Staffing',
-                desc: 'Full-cycle hiring for core & specialist roles',
-                to: '/services',
-            },
+        
             {
                 title: 'Tech & IT Recruitment',
                 desc: 'Vetted engineers, product & cloud talent',
