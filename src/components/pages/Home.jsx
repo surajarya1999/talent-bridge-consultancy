@@ -33,10 +33,10 @@ const HERO_SLIDES = [
         primaryCta: {
             label: 'Hire Vetted Tech Talent →',
             modal: 'employerModal',
-            className: 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/25',
+            className: 'bg-blue-500 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/25',
         },
         secondaryCta: { label: 'See 4-Step Screening', href: '#process' },
-        image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=80',
+        image: 'https://plus.unsplash.com/premium_photo-1723802464689-411ae08ad38e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         fallbackImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80',
         alt: 'IT and Tech Recruitment',
         cardType: 'domains',
@@ -55,7 +55,7 @@ const HERO_SLIDES = [
             className: 'bg-teal-500 hover:bg-teal-400 text-slate-950 shadow-lg shadow-teal-500/20',
         },
         secondaryCta: { label: 'Submit Your CV', modal: 'candidateModal' },
-        image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=1800&q=80',
+        image: 'https://images.unsplash.com/photo-1758518730037-a16581a040e8?q=80&w=1031&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
         fallbackImage: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1600&q=80',
         alt: 'Career Growth Opportunities',
         cardType: 'candidate',
@@ -1240,7 +1240,7 @@ export default function Home({ onOpenModal, onApplyRole }) {
                                 {/* Main Image */}
                                 <div className="relative rounded-2xl overflow-hidden shadow-xl">
                                     <img
-                                        src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+                                        src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                                         alt="TalentBridge Infrastructure and Recruitment Operations"
                                         loading="lazy"
                                         className="w-full h-[280px] sm:h-[365px] object-cover"
@@ -1397,13 +1397,13 @@ export default function Home({ onOpenModal, onApplyRole }) {
                         <div className="relative min-h-[400px] sm:min-h-[430px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl">
 
                             <img
-                                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1800&q=85"
+                                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
                                 alt="Team collaboration"
                                 loading="lazy"
                                 className="absolute inset-0 w-full h-full object-cover"
                             />
 
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/40 to-black/20" />
 
                             <div className="relative z-10 min-h-[400px] sm:min-h-[430px] flex items-center px-5 py-12 sm:px-10 lg:px-10">
 

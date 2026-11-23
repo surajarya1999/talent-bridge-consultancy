@@ -652,7 +652,7 @@ export default function Employers({ onOpenModal, onSelectModel, onSubmitHiring }
                             <div aria-hidden="true" className="absolute inset-0 translate-x-3 -translate-y-3 sm:translate-x-4 sm:-translate-y-4 rounded-2xl border-2 border-[#3266bb]/30" />
                             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group">
                                 <img
-                                    src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"
+                                    src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
                                     alt="Modern Enterprise Team Workspace"
                                     className="w-full h-[310px] sm:h-[390px] lg:h-[430px] object-cover transition-transform duration-700 group-hover:scale-105"
                                     onError={(e) => {

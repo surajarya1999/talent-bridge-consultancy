@@ -431,7 +431,7 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
                                 <div aria-hidden="true" className="absolute inset-0 translate-x-3 -translate-y-3 sm:translate-x-4 sm:-translate-y-4 rounded-2xl border-2 border-[#3266bb]/30" />
                                 <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white bg-slate-900 group">
                                     <img
-                                        src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=1200&q=80"
+                                        src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
                                         alt="Strategic Talent Consultation"
                                         className="w-full h-[300px] sm:h-[380px] lg:h-[420px] object-cover object-top transition-transform duration-700 group-hover:scale-105"
                                         onError={(e) => {
@@ -631,7 +631,7 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
                         >
                             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group">
                                 <img
-                                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80"
+                                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
                                     alt="TalentBridge Recruitment Strategy Session"
                                     className="w-full h-[320px] sm:h-[420px] lg:h-[460px] object-cover transition-transform duration-700 group-hover:scale-105"
                                     onError={(e) => {
@@ -650,7 +650,7 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
                                     whileHover={{ y: -3 }}
                                     className="absolute bottom-4 left-4 right-4 sm:right-auto sm:bottom-5 sm:left-5 bg-white/95 backdrop-blur-md rounded-xl p-3.5 sm:px-4 sm:py-3.5 shadow-xl border border-slate-200/80 flex items-center gap-3.5 max-w-xs"
                                 >
-                                    <div className="w-10 h-10 rounded-lg bg-[#0B2D63] text-white flex items-center justify-center shrink-0">
+                                    <div className="w-10 h-10 rounded-lg bg-[#1c4b97] text-white flex items-center justify-center shrink-0">
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                             <path
                                                 strokeLinecap="round"
@@ -686,7 +686,7 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
 
                             <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-[46px] text-slate-900 leading-[1.18] tracking-tight">
                                 Hiring with{' '}
-                                <span className="text-[#123060]">precision, speed &amp; certainty.</span>
+                                <span className="text-[#3b78db]">precision, speed &amp; certainty.</span>
                             </h2>
 
                             <p className="font-sans text-slate-500 text-xs sm:text-[13.5px] leading-relaxed max-w-xl">
@@ -713,14 +713,14 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
                                             onClick={() => setActiveAdvantage(idx)}
                                             className={`group relative overflow-hidden rounded-xl p-3.5 sm:p-4 border transition-all duration-300 cursor-pointer flex items-start gap-3 sm:gap-3.5 ${isActive
                                                 ? 'bg-white border-[#123060]/45 shadow-md'
-                                                : 'bg-white/80 hover:bg-white border-slate-200/90 hover:border-[#123060]/30 shadow-sm'
+                                                : 'bg-white/80 hover:bg-white border-slate-200/90 hover:border-[#1c4b97]/30 shadow-sm'
                                                 }`}
                                         >
                                             <span aria-hidden="true" className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#3266bb] to-teal-400 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
                                             <div
                                                 className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-all duration-300 ${isActive
                                                     ? 'bg-[#0B2D63] shadow-sm'
-                                                    : 'bg-[#E6ECF5] group-hover:bg-[#0B2D63]'
+                                                    : 'bg-[#E6ECF5] group-hover:bg-[#215dbd]'
                                                     }`}
                                             >
                                                 <AdvantageIcon type={item.icon} isActive={isActive} />
@@ -773,13 +773,13 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
 
                                 <div className="pt-6">
                                     <motion.a
-                                        href="/#jobs"
+                                        href="/jobs"
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                         onClick={() => {
                                             if (onSelectService) onSelectService('Job Seeker');
                                         }}
-                                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#092452] hover:bg-[#0D316E] text-white text-xs sm:text-[13px] font-semibold shadow-sm hover:shadow-md transition-all duration-200"
+                                        className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#092452] hover:bg-[#4179da] text-white text-xs sm:text-[13px] font-semibold shadow-sm hover:shadow-md transition-all duration-200"
                                     >
                                         <span>Explore Open Jobs</span>
                                         <span
@@ -825,7 +825,7 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
                                             if (onOpenModal) {
                                                 onOpenModal('employerModal');
                                             } else {
-                                                window.location.href = '/#contact';
+                                                window.location.href = '/employers';
                                             }
                                         }}
                                         className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#16366B] hover:bg-[#1E4484] border border-white/10 text-white text-xs sm:text-[13px] font-semibold shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
@@ -899,7 +899,7 @@ export default function ServicesPage({ onOpenModal, onSelectService }) {
                                     if (onOpenModal) {
                                         onOpenModal('employerModal');
                                     } else {
-                                        window.location.href = '/#contact';
+                                        window.location.href = '/contact';
                                     }
                                 }}
                                 className="group w-full sm:w-auto px-5 py-3 rounded-lg bg-[#E9EDF2] hover:bg-white text-[#0B2D63] text-xs sm:text-[13px] font-bold shadow-md hover:shadow-xl transition-all duration-200 cursor-pointer inline-flex items-center justify-center gap-2"

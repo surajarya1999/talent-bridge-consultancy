@@ -345,7 +345,7 @@ function About({ onOpenModal }) {
                                 <div aria-hidden="true" className="absolute inset-0 translate-x-3 -translate-y-3 sm:translate-x-4 sm:-translate-y-4 rounded-2xl border-2 border-[#3266bb]/30" />
                                 <div className="relative overflow-hidden rounded-2xl border-4 border-white bg-slate-200 shadow-xl group">
                                     <img
-                                        src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85"
+                                        src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
                                         alt="TalentBridge team collaborating"
                                         loading="lazy"
                                         className="block h-[280px] w-full object-cover object-center sm:h-[380px] lg:h-[350px] xl:h-[380px] transition-transform duration-700 group-hover:scale-105"
@@ -700,7 +700,7 @@ function About({ onOpenModal }) {
                             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 shrink-0"
                         >
                             <motion.a
-                                href="/#jobs"
+                                href="/jobs"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 className="px-5 py-3 rounded-lg bg-white hover:bg-slate-100 text-[#0670b8] text-xs sm:text-sm font-bold shadow-sm transition inline-flex items-center justify-center gap-2"
@@ -713,7 +713,7 @@ function About({ onOpenModal }) {
                                 type="button"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                onClick={() => (onOpenModal ? onOpenModal('employerModal') : (window.location.href = '/#contact'))}
+                                onClick={() => (onOpenModal ? onOpenModal('employerModal') : (window.location.href = '/employers'))}
                                 className="px-5 py-3 rounded-lg bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs sm:text-sm font-semibold shadow-sm backdrop-blur-sm transition cursor-pointer inline-flex items-center justify-center"
                             >
                                 Hire Top Talent

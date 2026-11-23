@@ -684,7 +684,7 @@ export default function Candidates({ onOpenModal, onBrowseJobs, onRegisterCandid
                             <div aria-hidden="true" className="absolute inset-0 translate-x-3 -translate-y-3 sm:translate-x-4 sm:-translate-y-4 rounded-2xl border-2 border-[#3266bb]/30" />
                             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group">
                                 <img
-                                    src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=1200&q=80"
+                                    src="https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_1280.jpg"
                                     alt="Confident Candidate Ready for New Career Opportunities"
                                     className="w-full h-[310px] sm:h-[390px] lg:h-[430px] object-cover object-top transition-transform duration-700 group-hover:scale-105"
                                     onError={(e) => {

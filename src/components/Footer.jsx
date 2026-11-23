@@ -89,20 +89,20 @@ const Footer = ({ onOpenModal }) => {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
-                        <button
-                            type="button"
+                        <Link
+                            to="/jobs"
                             onClick={() => onOpenModal && onOpenModal("candidateModal")}
-                            className="flex-1 sm:flex-initial px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-semibold transition cursor-pointer"
+                            className="flex-1 sm:flex-initial text-center px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-semibold transition cursor-pointer"
                         >
                             Upload Resume
-                        </button>
-                        <button
-                            type="button"
+                        </Link>
+                        <Link
+                            to="/employers"
                             onClick={() => onOpenModal && onOpenModal("employerModal")}
-                            className="flex-1 sm:flex-initial px-4 py-2 rounded-lg bg-[#3266bb] hover:bg-[#2263ca] text-white text-xs font-semibold shadow-sm transition cursor-pointer"
+                            className="flex-1 sm:flex-initial text-center px-4 py-2 rounded-lg bg-[#3266bb] hover:bg-[#2263ca] text-white text-xs font-semibold shadow-sm transition cursor-pointer"
                         >
                             Hire Talent →
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>
